@@ -19,7 +19,7 @@ void create_directory() {
 
 void remove_directory() {
     char dirName[128];
-    printf("Enter the Directory name you want to create: ");
+    printf("Enter the Directory name you want to remove: ");
     scanf("%s", dirName);
     int status = rmdir(dirName);
     if(status == 0) {
@@ -75,50 +75,52 @@ void read_directory_contents() {
     free(cwd);
 }
 
-void close_directory(DIR *dirStream) {
-    closedir(dirStream);
+void close_directory() {
+    DIR *dirStream = opendir(".");
+    if (dirStream) {
+        closedir(dirStream);
+        printf("Directory Closed Successfully.\n");
+    } else {
+        printf("No open directory stream found.\n");
+    }
 }
 
 int main() {
     char input = '0';
-
-    printf("Select the option(s) appropriately by entering the number: \n\
-    Enter 1 for creating a directory\n\
-    Enter 2 for removing directory\n\
-    Enter 3 for printing working directory\n\
-    Enter 4 for changing directory one level up\n\
-    Enter 5 for reading the contents of directory\n\
-    Enter 6 for closing the current directory\n\
-    Enter 'q' to exit the program\n");
-
-    scanf("%d", &input);
-
     while (input != 'q') {
+        printf("Select the option(s) appropriately by entering the number: \n\
+        Enter 1 for creating a directory\n\
+        Enter 2 for removing directory\n\
+        Enter 3 for printing working directory\n\
+        Enter 4 for changing directory one level up\n\
+        Enter 5 for reading the contents of directory\n\
+        Enter 6 for closing the current directory\n\
+        Enter q to exit the program\n");
+
+        scanf(" %c", &input);
         switch(input) {
             case '1':
                 create_directory();
+            break;
             case '2':
-				remove_directory();
-			break;
-			case '3':
-				print_working_directory();
-			break;
-			case '4':
-				change_directory_level_up();
-			break;
-			case '5':
-				read_directory_contents();
-			break;
-			case '6':
-				close_current_directory();
-			break;
-			case 'q':
-				exit(0);
-			break;
-			default:
-				printf("Invalid option, please enter a valid option\n");
-			break;
-		}
-	}
+                remove_directory();
+            break;
+            case '3':
+                print_working_directory();
+            break;
+            case '4':
+                change_directory_up();
+            break;
+            case '5':
+                read_directory_contents();
+            break;
+            case '6':
+                close_directory();
+            break;
+            case 'q':
+                exit(0);
+            break;
+        }
+}
 }
 
