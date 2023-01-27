@@ -26,7 +26,7 @@ void remove_directory(char *dir_name) {
 void print_working_directory() {
     char *cwd = getcwd(NULL, 0);
     if(cwd != NULL) {
-        printf("Current working directory: %s\n", cwd);
+        printf("Current Working Directory is: %s\n", cwd);
         free(cwd);
     } else {
         printf("Failed to get current working directory\n");
@@ -34,17 +34,40 @@ void print_working_directory() {
 }
 
 void change_directory_up() {
-    
-    printf("Working Directory Before Operation: %s\n", cwd);
+    char *cwd = getcwd(NULL, 0);
+    printf("Working Directory Before Operation:%s\n", cwd);
+    free(cwd);
     int status = chdir("..");
     if(status == 0) {
-        printf("Changed directory to one level up\n");
+        printf("Directory Changed Successfully. \n");
+        char *cwd = getcwd(NULL, 0);
+        printf("Working Directory After Operation: %s\n", cwd);
+        free(cwd);
     } else {
         printf("Failed to change directory\n");
     }
 }
 
-void read_directory_contents(char *dir_name) {
-    DIR *dir = opendir(dir_name);
-    if(dir) {
-        struct dirent *entry
+void read_directory_contents() {
+    DIR *dirStream;
+    struct dirent *entry;
+    char *cwd = getcwd(NULL, 0);
+    dirStream = opendir(cwd);
+
+    if (dirStream == NULL) {
+        printf("Error: Could not open directory %s\n", cwd);
+        return;
+    }
+
+    while ((entry = readdir(dirStream)) != NULL) {
+        if (entry->d_name != NULL) {
+            printf("%s/\n", entry->d_name);
+        } else {
+            printf("Error pulling directory");
+        }
+    }
+    closedir(dirStream);
+    free(cwd);
+}
+
+
