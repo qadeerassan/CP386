@@ -5,8 +5,11 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-void create_directory(char *dir_name) {
-    int status = mkdir(dir_name, 0755);
+void create_directory() {
+    char dirName[128];
+    printf("Enter the Directory name you want to create: ");
+    scanf("%s", dirName);
+    int status = mkdir(dirName, 0777);
     if(status == 0) {
         printf("Directory created successfully\n");
     } else {
@@ -14,10 +17,13 @@ void create_directory(char *dir_name) {
     }
 }
 
-void remove_directory(char *dir_name) {
-    int status = rmdir(dir_name);
+void remove_directory() {
+    char dirName[128];
+    printf("Enter the Directory name you want to create: ");
+    scanf("%s", dirName);
+    int status = rmdir(dirName);
     if(status == 0) {
-        printf("Directory is removed successfully\n");
+        printf("Directory is removed Successfully\n");
     } else {
         printf("Failed to remove directory\n");
     }
@@ -66,8 +72,53 @@ void read_directory_contents() {
             printf("Error pulling directory");
         }
     }
-    closedir(dirStream);
     free(cwd);
 }
 
+void close_directory(DIR *dirStream) {
+    closedir(dirStream);
+}
+
+int main() {
+    char input = '0';
+
+    printf("Select the option(s) appropriately by entering the number: \n\
+    Enter 1 for creating a directory\n\
+    Enter 2 for removing directory\n\
+    Enter 3 for printing working directory\n\
+    Enter 4 for changing directory one level up\n\
+    Enter 5 for reading the contents of directory\n\
+    Enter 6 for closing the current directory\n\
+    Enter 'q' to exit the program\n");
+
+    scanf("%d", &input);
+
+    while (input != 'q') {
+        switch(input) {
+            case '1':
+                create_directory();
+            case '2':
+				remove_directory();
+			break;
+			case '3':
+				print_working_directory();
+			break;
+			case '4':
+				change_directory_level_up();
+			break;
+			case '5':
+				read_directory_contents();
+			break;
+			case '6':
+				close_current_directory();
+			break;
+			case 'q':
+				exit(0);
+			break;
+			default:
+				printf("Invalid option, please enter a valid option\n");
+			break;
+		}
+	}
+}
 
