@@ -1,0 +1,32 @@
+The output of : uname -a
+ : is
+›››››››>>>>>>>> InLinux 22571f862a0d 5.15.49-linuxkit #1 SMP PREEMPT Tue Sep 13 07:51:32 UTC 2022 aarch64 aarch64 aarch64 GNU/Linux
+‹‹‹«‹‹‹‹‹‹‹‹‹‹‹
+The output of : free -m
+ : is
+›››››››>>>>>>>> In               total        used        free      shared  buff/cache   available
+Mem:            7850         981        2170         344        4699        6330
+Swap:           1023           0        1023
+‹‹‹«‹‹‹‹‹‹‹‹‹‹‹
+The output of : ls -l -a -F
+ : is
+›››››››>>>>>>>> Intotal 64
+drwxr-xr-x 11 vscode vscode   352 Feb 10 00:15 ./
+drwxr-xr-x 11 root   root     352 Feb  8 21:24 ../
+-rwxr-xr-x  1 vscode vscode 10200 Feb  9 22:54 assignment_average*
+-rw-r--r--  1 vscode vscode    61 Feb  9 22:54 assignment_average.c
+-rw-r--r--  1 vscode vscode  6148 Feb  8 21:28 .DS_Store
+-rw-r--r--  1 vscode vscode   715 Feb  8 21:25 Makefile
+-rw-r--r--  1 vscode vscode   536 Feb 10 00:15 output.txt
+-rwxr-xr-x  1 vscode vscode 18712 Feb 10 00:15 process_management*
+-rw-r--r--  1 vscode vscode  2754 Feb 10 00:15 process_management.c
+-rw-r--r--  1 vscode vscode   184 Feb  8 21:27 sample_in_grades.txt
+-rw-r--r--  1 vscode vscode    39 Feb  8 21:27 sample_in_process.txt
+‹‹‹«‹‹‹‹‹‹‹‹‹‹‹
+The output of : whoami
+ : is
+›››››››>>>>>>>> Invscode
+‹‹‹«‹‹‹‹‹‹‹‹‹‹‹
+The output of : pwd : is
+›››››››>>>>>>>> In/workspaces/CP386/A2
+‹‹‹«‹‹‹‹‹‹‹‹‹‹‹
