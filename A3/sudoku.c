@@ -15,8 +15,8 @@ int validator(parameters *arg) {
     // check row
     int occurrences[9] = {0};
     for (int ri = 0; ri < 9; ri++) {
-        occurrences[arg->row[ri]]++;
-        if (occurrences[arg->row[ri]] > 1) {
+        occurrences[arg->row[ri] - 1]++;
+        if (occurrences[arg->row[ri] - 1] > 1) {
             isValid = 0;
             break;
         }
@@ -26,8 +26,8 @@ int validator(parameters *arg) {
     if (isValid == 1) {
         int occurrences[9] = {0};
         for (int ci = 0; ci < 9; ci++) {
-            occurrences[arg->col[ci]]++;
-            if (occurrences[arg->col[ci]] > 1) {
+            occurrences[arg->col[ci] - 1]++;
+            if (occurrences[arg->col[ci] - 1] > 1) {
                 isValid = 0;
                 break;
             }
@@ -38,8 +38,8 @@ int validator(parameters *arg) {
     if (isValid == 1) {
         int occurrences[9] = {0};
         for (int si = 0; si < 9; si++) {
-            occurrences[arg->sq[si]]++;
-            if (occurrences[arg->sq[si]] > 1) {
+            occurrences[arg->sq[si] - 1]++;
+            if (occurrences[arg->sq[si] - 1] > 1) {
                 isValid = 0;
                 break;
             }
@@ -74,7 +74,6 @@ int main(int argc, char* argv[]) {
             j++;
             val  = strtok(NULL, " ");
         }
-        printf("\n");
 
     }
 
@@ -109,7 +108,8 @@ int main(int argc, char* argv[]) {
         parameters args = { {0}, {0}, {0} };
         memcpy(args.row, row, sizeof(row));
         memcpy(args.col, col, sizeof(col));
-        memcpy(args.sq, sq, sizeof(sq));        
+        memcpy(args.sq, sq, sizeof(sq));
+
         pthread_create(&thread, NULL, (void *) *(*validator) , (void*) &args);
 
         pthread_join(thread, (void**) &isValid);
@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
         for (int j = 0; j < 9; j++) {
             printf("%d ", sudoku_matrix[i][j]);
         }
-        printf("end \n");
+        printf("\n");
     }
 
     if (isValid == 1) {
@@ -132,5 +132,5 @@ int main(int argc, char* argv[]) {
         printf("Sudoku puzzle is not valid.\n");     
     }
 
-    return isValid;
+    return 0;
 }
