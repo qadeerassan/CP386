@@ -49,31 +49,33 @@ int validator(parameters *arg) {
     return isValid;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     FILE* board_fp;
     int sudoku_matrix[9][9];
     int isValid = 1;
 
-    board_fp = fopen("sample_in_sudoku.txt", "r");
+    board_fp = fopen(argv[1], "r");
     if (board_fp == NULL) {
         printf("File open error. \n");
         return 1;
     }
 
-    char line[20];
+    char line[56];
+
     for (int i = 0; i < 9; i++) {
         if (fgets(line, sizeof(line), board_fp) == NULL) {
             printf("Error reading file. \n");
             return 1;
         }
-
-        char *val = strtok(line, " ");
         int j = 0;
+        char *val = strtok(line, " ");
         while (val != NULL) {
             sudoku_matrix[i][j] = atoi(val);
             j++;
             val  = strtok(NULL, " ");
         }
+        printf("\n");
+
     }
 
     int sq_start_indices[9][2] = {
@@ -107,7 +109,8 @@ int main() {
         parameters args = { {0}, {0}, {0} };
         memcpy(args.row, row, sizeof(row));
         memcpy(args.col, col, sizeof(col));
-        memcpy(args.sq, sq, sizeof(sq));        pthread_create(&thread, NULL, (void* (*)(void*))validator, (void*) &args);
+        memcpy(args.sq, sq, sizeof(sq));        
+        pthread_create(&thread, NULL, (void *) *(*validator) , (void*) &args);
 
         pthread_join(thread, (void**) &isValid);
         if (isValid == 0) {
@@ -119,7 +122,7 @@ int main() {
         for (int j = 0; j < 9; j++) {
             printf("%d ", sudoku_matrix[i][j]);
         }
-        printf("\n");
+        printf("end \n");
     }
 
     if (isValid == 1) {
