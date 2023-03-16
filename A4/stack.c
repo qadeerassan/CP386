@@ -34,15 +34,15 @@ void push(int v, StackNode **top, pthread_mutex_t *thread_mutex)
 // pop function
 int pop(StackNode **top, pthread_mutex_t *thread_mutex)
 {
-    pthread_mutex_lock(thread_mutex);
 
 	StackNode *temp;
     if (is_empty(*top)) {
         printf("Stack empty \n");
-        pthread_mutex_unlock(thread_mutex);
+        // pthread_mutex_unlock(thread_mutex);
         return 0;
 	}
     else {
+        pthread_mutex_lock(thread_mutex);
         int data = (*top)->data;
         printf("Thread is running Pop() operation and value is: %d\n",data);
 		temp = *top;
